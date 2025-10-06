@@ -1,19 +1,22 @@
 const CACHE_NAME = "casamento-v1"; // define o nome do cache que o service worker vai criar. Sse atualizar o site, muda para "casamento-v2" para o sw criar um novo cache e descartar o antigo no evento activate.
 const FILES_TO_CACHE = [ // É um array com todos os arquivos que salvar no cache durante o install.
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./imagem1.jpg",
-  "./cobertor.jpg",
-  "./jacquin.jpg",
-  "./ronaldo.jpg",
-  "./buque.jpg",
-  "./naiara.jpg",
-  "./wepink.jpg",
-  "./gata.jpg",
-  "./divino.jpg",
-  "./icon-192.png",
-  "./icon-512.png"
+  "index.html",
+  "manifest.json",
+  "imagem1.png",
+  "cobertor.jpg",
+  "jacquin.jpg",
+  "ronaldo.jpg",
+  "buque.jpg",
+  "naiara.jpg",
+  "wepink.jpg",
+  "gata.jpg",
+  "divino.jpg",
+  "carminha.jpg",
+  "buque2.jpg",
+  "pedreiro.jpg",
+  "sal.jpeg",
+  "icon-192.png",
+  "icon-512.png"
 ];
 
 // Instala e salva no cache
