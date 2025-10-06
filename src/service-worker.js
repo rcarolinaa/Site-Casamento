@@ -15,8 +15,8 @@ const FILES_TO_CACHE = [ // É um array com todos os arquivos que salvar no cach
   "buque2.jpg",
   "pedreiro.jpg",
   "sal.jpeg",
-  "icon-192.png",
-  "icon-512.png"
+  "icone-192.png",
+  "icone-512.png"
 ];
 
 // Instala e salva no cache
