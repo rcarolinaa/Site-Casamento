@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Jonata & Mariza</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#b44b2c">
+</head>
+<body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Georgia, serif;
+      background: #fffdfb;
+      color: #444;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-family: "Fleur De Leah", cursive;
+      font-size: 2.2rem;
+      color: #ee9fb2;
+    }
+
+    nav {
+      margin: 10px 0;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+      color:#444;
+    }
+
+    nav a.ativo {
+      color: var(--cor);
+      border-bottom: 2px solid #ee9fb2;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .home {
+      text-align: center;
+    }
+
+    .home img {
+      max-width: 50%;
+      border-radius: 12px;
+      margin: 12px 0;
+    }
+
+    .lista {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .preco {
+      font-weight: bold;
+      color: #ee9fb2;
+      margin: 6px 0;
+    }
+
+    button {
+      background: #ee9fb2;
+      border: none;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #d44f6e;
+    }
+
+    @media (max-width: 480px) {
+      .home img {max-width: 100%;}
+  }
+  </style>
+  <header>
+    <h1>Jonata & Mariza</h1>
+    <nav>
+      <a href="#" id="navHome" class="ativo">Home</a> |
+      <a href="#" id="navLista">Lista de Presentes</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Página 'Home' -->
+    <section id="home" class="home">
+      <img src="imagem1.png" alt="Casal">
+      <p><em>Unidos pelo amor, guiados pelos sonhos.</em></p>
+      <p>O que começou como uma linda amizade logo virou amor... Agora, celebramos o sim mais importante de nossas vidas.</p>
+      <p>Seu carinho é o maior presente, mas se desejar nos presentear, aqui estão algumas opções escolhidas com amor.</p>
+      <br><p><strong>26/09/2026</strong></p>
+    </section>
+
+    <!-- Página 'Lista de Presentes' -->
+    <section id="lista" class="lista" style="display:none"></section> <!--"display:none": serve para manter a página 'Lista de Presentes' escondida até ser chamada-->
+  </main>
+
+  <footer>Com carinho 💗 Jonata & Mariza</footer>
+
+  <script>
+    // Lista dos presentes
+    const presentes = [
+      { nome: "Cobertor para a noiva estar coberta de razão", valor: 164.37, img: "cobertor.jpg" },
+      { nome: "Curso de culinária para o noivo", valor: 328.74, img: "jacquin.jpg" },
+      { nome: "Corte de cabelo do noivo por 6 meses", valor: 316.74, img: "ronaldo.jpg" },
+      { nome: "Jogar o buquê na sua direção", valor: 156.05, img: "buque.jpg" },
+      { nome: "Toma aqui os 50 reais", valor: 50.00, img: "naiara.jpg"},
+      { nome: "Vale WePink para a noiva", valor: 150.00, img: "wepink.jpg"},
+      { nome: "PIX pra dizer que não deu nada", valor: 100.00, img: "gata.jpg"},
+      { nome: "Se por intervenção divina, você sentir-se tocado...", valor: 500.00, img: "divino.jpg"},
+      { nome: "Sal pra pressão da noiva não abaixar na festa", valor: 101.00, img: "sal.jpeg"},
+      { nome: "Taxa para a noiva não jogar o buquê para sua namorada", valor: 210.00, img: "buque2.jpg"},
+      { nome: "Diária do pedreiro para construção da nossa casa", valor: 176.15, img: "pedreiro.jpg"},
+      { nome: "Amo vocês, mas gastei a maior parte do meu dinheiro no look", valor: 110.00, img: "carminha.jpg"}
+    ];
+
+    const home = document.getElementById("home");
+    const lista = document.getElementById("lista");
+
+    // lista renderizada para chamar cada card de forma mais prática
+    function renderLista() {
+      lista.innerHTML = presentes.map(p => ` 
+        <div class="card">
+          <img src="${p.img}" alt="${p.nome}">
+          <h3>${p.nome}</h3>
+          <div class="preco">R$ ${p.valor.toFixed(2)}</div>
+          <button onclick="presentear('${p.nome}')">Presentear</button>
+        </div>
+      `).join("");
+    }
+    renderLista(); // chama a função para mostrar a lista de presentes
+
+    // Função chamada ao clicar em "Presentear"
+    function presentear(nome) {
+      alert("Você escolheu presentear: " + nome + " 🎁");
+    }
+
+    // Navegação entre páginas. Serve para que a página que eu clicar (home) ou (lista de presentes) fique ativa na tela enquanto esconde a outra
+    document.getElementById("navHome").onclick = () => {
+      home.style.display = "block"; lista.style.display = "none";
+      navAtivo("navHome");
+    };
+    document.getElementById("navLista").onclick = () => {
+      home.style.display = "none"; lista.style.display = "grid";
+      navAtivo("navLista");
+    };
+    function navAtivo(id) {
+    // pega os links dentro do <nav> e deixa 'sublinhado' o que está marcando corretamente para evitar conflitos entre as páginas
+      document.querySelectorAll("nav a").forEach(a => a.classList.remove("ativo"));
+      document.getElementById(id).classList.add("ativo");
+    }
+
+    // Verifica se o navegador é compatível para instalar no celular/computador
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
+</body>
+</html>
